@@ -2,8 +2,13 @@
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-Roberton003%2Fmcp--server--decisions-black?logo=github)](https://github.com/Roberton003/mcp-server-decisions)
 
-Architectural decision tracking with prediction validation and outcome gates.
+**Architectural decision tracking with prediction validation and outcome gates.**
+
+Record decisions, make testable predictions, measure outcomes, and learn what actually works. Built for AI agents and teams.
+
+**[→ Quick Start](QUICKSTART.md) | [→ Full Docs](README.md) | [→ Pattern Doc](docs/OUTCOME-GATE-PATTERN.md) | [→ Contributing](CONTRIBUTING.md)**
 
 ## Why This Exists
 
@@ -203,6 +208,25 @@ mcp-cli -- python3 server.py
 
 - `MCP_DECISIONS_LOG_PATH` — Override the default log file location (default: `~/.local/share/mcp-decisions/decisions_log.json`)
 
+## Roadmap
+
+- ✅ Core: Decision/prediction/outcome tracking
+- ✅ Outcome Gate: In-band closure nudges
+- ✅ Technology Performance Registry: Aggregation by tech
+- 🔄 Future: Web UI for browsing decisions
+- 🔄 Future: Webhooks for outcome notifications
+- 🔄 Future: Decision templates (common problem patterns)
+
+## Support
+
+- **Issues & Bug Reports**: [GitHub Issues](https://github.com/Roberton003/mcp-server-decisions/issues)
+- **Discussion**: [GitHub Discussions](https://github.com/Roberton003/mcp-server-decisions/discussions)
+- **Wiki & FAQ**: [Project Wiki](https://github.com/Roberton003/mcp-server-decisions/wiki)
+
 ## License
 
-MIT — See [LICENSE](LICENSE)
+MIT © 2026 Roberton003 — See [LICENSE](LICENSE)
+
+---
+
+**Made for AI agents. Built for teams. Learn from every decision.**
