@@ -89,9 +89,9 @@ python3 scripts/technology_performance_report.py
 
 ## Running the Project
 
-### As an MCP Server (Claude or Compatible Client)
+### As an MCP Server (Any MCP-Compatible Client)
 
-Add to your MCP client configuration:
+**Generic Configuration:**
 
 ```json
 {
@@ -101,6 +101,13 @@ Add to your MCP client configuration:
   }
 }
 ```
+
+**Client-Specific Configurations**: See [Client Integrations](docs/INTEGRATIONS.md) for:
+- **Claude** (claude.json)
+- **OpenCode** (opencode.jsonc)
+- **Codex** (agents config)
+- **Antigravity** (GEMINI.md)
+- Generic MCP clients
 
 ### Standalone Usage
 
@@ -146,6 +153,19 @@ Decision loops leak because predictions aren't validated. This server embeds a r
 
 The nudge is in-band (inside the tool response), where agents are already looking. Result: **3.8% → 14.5% closure rate** improvement (validated on internal tool).
 
+**Real Example**: After recording a decision with 3 predictions, the response includes:
+
+```json
+{
+  "decision_id": "DEC-2026-0042",
+  "prediction_ids": ["PRD-2026-0051", "PRD-2026-0052", "PRD-2026-0053"],
+  "status": "OK",
+  "OUTCOME_GATE": "⚠️  3 prediction(s) from this session still lack outcomes: [PRD-2026-0051, PRD-2026-0052, PRD-2026-0053]. Record results via record-outcome before ending."
+}
+```
+
+Next query still shows the gate until all 3 outcomes are recorded. Once they are, the gate disappears automatically.
+
 For the full pattern explanation, see [`docs/OUTCOME-GATE-PATTERN.md`](docs/OUTCOME-GATE-PATTERN.md).
 
 ## Architecture
@@ -169,6 +189,9 @@ For the full pattern explanation, see [`docs/OUTCOME-GATE-PATTERN.md`](docs/OUTC
 ## Documentation
 
 - **[Quick Start](QUICKSTART.md)** — 5-minute setup guide
+- **[Client Integrations](docs/INTEGRATIONS.md)** — Setup for Claude, OpenCode, Codex, Antigravity, and generic MCP clients
+- **[Architecture & Design](docs/ARCHITECTURE.md)** — Why JSONL? Why append-only? Why accuracy scores?
+- **[Detailed Examples](docs/EXAMPLES.md)** — Real request/response pairs with Outcome Gate in action
 - **[Contributing](CONTRIBUTING.md)** — How to contribute
 - **[Outcome Gate Pattern](docs/OUTCOME-GATE-PATTERN.md)** — Design philosophy and generalized recipe
 - **[Wiki](https://github.com/Roberton003/mcp-server-decisions/wiki)** — FAQ and advanced topics
