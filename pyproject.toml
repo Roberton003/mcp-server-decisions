@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-server-decisions"
+version = "1.0.0"
+description = "MCP server for architectural decision tracking with prediction validation and outcome gates"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Roberton003"}]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/Roberton003/mcp-server-decisions"
+
+[project.scripts]
+mcp-server-decisions = "server:main"
