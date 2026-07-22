@@ -1,8 +1,12 @@
+<!-- mcp-name: io.github.Roberton003/mcp-server-decisions -->
+
 # MCP Server: Decisions
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-Roberton003%2Fmcp--server--decisions-black?logo=github)](https://github.com/Roberton003/mcp-server-decisions)
+
+**Registry**: [`io.github.Roberton003/mcp-server-decisions`](https://registry.modelcontextprotocol.io/)
 
 **Architectural decision tracking with prediction validation and outcome gates.**<br />
 Record decisions, make testable predictions, measure outcomes, and learn from every choice.

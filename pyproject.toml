@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mcp-server-decisions"
-version = "1.0.0"
+version = "1.0.2"
 description = "MCP server for architectural decision tracking with prediction validation and outcome gates"
 readme = "README.md"
 license = {text = "MIT"}

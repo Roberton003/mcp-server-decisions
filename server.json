@@ -6,16 +6,14 @@
     "url": "https://github.com/Roberton003/mcp-server-decisions",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "packages": [
     {
-      "registryType": "github",
-      "identifier": "Roberton003/mcp-server-decisions",
-      "version": "1.0.0",
+      "registryType": "pypi",
+      "identifier": "mcp-server-decisions",
+      "version": "1.0.2",
       "transport": {
-        "type": "stdio",
-        "command": "python3",
-        "args": ["-m", "server"]
+        "type": "stdio"
       },
       "environmentVariables": [
         {
