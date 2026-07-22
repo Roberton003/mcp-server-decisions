@@ -17,3 +17,12 @@ Repository = "https://github.com/Roberton003/mcp-server-decisions"
 
 [project.scripts]
 mcp-server-decisions = "server:main"
+
+[tool.hatch.build.targets.wheel]
+include = [
+  "/server.py",
+  "/scripts",
+  "/README.md",
+  "/LICENSE",
+  "/docs"
+]
