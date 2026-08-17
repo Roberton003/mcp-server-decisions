@@ -1,44 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" role="img" aria-labelledby="title desc">
-  <title id="title">MCP Server Decisions - Architectural Decision Tracking</title>
-  <desc id="desc">Servidor MCP para rastreamento de decisões arquiteturais com validação de predições e outcome gates</desc>
+  <title id="title">MCP Server Decisions - Architectural Decision Governance</title>
+  <desc id="desc">Rede neural de agentes MCP com rastreamento de decisões arquiteturais e outcome gates</desc>
   <style>
-    :root{ --bg:#0b1329; --ok:#a855f7; --bad:#f43f5e; --cur:#38bdf8; --gate:#9333ea; --ink:#faf5ff; --sub:#e9d5ff; }
+    :root{ --bg:#090d16; --purple:#a855f7; --cyan:#38bdf8; --green:#10b981; --red:#ef4444; --ink:#faf5ff; --sub:#e9d5ff; }
     *{transform-box:fill-box;}
-    @keyframes scan{ from{transform:translateX(0)} to{transform:translateX(200px)} }
-    @keyframes down{ 0%,55%{transform:translateY(0);opacity:1} 70%,100%{transform:translateY(120px);opacity:.9} }
-    @keyframes pass{ 0%,45%{transform:translateX(0);opacity:1} 75%,100%{transform:translateX(300px);opacity:0} }
-    @keyframes gateGlow{ 0%,100%{opacity:.25} 50%{opacity:1} }
-    @keyframes mcpFill{ from{stroke-dashoffset:440} to{stroke-dashoffset:120} }
-    .scan{animation:scan 2.6s ease-in-out infinite alternate}
-    .okdrop{animation:pass 2.6s linear infinite}
-    .baddrop{animation:down 2.6s linear infinite}
-    .gate{animation:gateGlow 1.4s ease-in-out infinite}
-    .ring{stroke-dasharray:440 440;animation:mcpFill 4s ease-in-out infinite alternate}
-    @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
+    @keyframes synapseFlow {
+      0% { stroke-dashoffset: 200; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .synapse {
+      stroke-dasharray: 200;
+      animation: synapseFlow 2s linear infinite;
+    }
+    @keyframes nodePulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+    .mcpNode { animation: nodePulse 2.5s ease-in-out infinite; }
   </style>
-  <rect width="800" height="360" fill="var(--bg)"/>
-  <g transform="translate(40,60)">
-    <text x="0" y="-8" font-size="13" fill="var(--sub)" font-family="system-ui">solicitações &amp; predições MCP</text>
-    <path d="M0 40 Q25 10 50 40 T100 40 T150 40 T200 40 T250 40" fill="none" stroke="var(--cur)" stroke-width="4"/>
-    <g class="scan"><circle cx="250" cy="40" r="10" fill="var(--cur)" opacity=".9"/></g>
-    <g class="okdrop"><circle cx="60" cy="70" r="9" fill="var(--ok)"/></g>
-    <g class="baddrop" style="animation-delay:1.3s"><circle cx="120" cy="70" r="9" fill="var(--bad)"/></g>
+  <rect width="800" height="360" fill="var(--bg)" rx="12"/>
+  <g stroke="#3b0764" stroke-width="2">
+    <line x1="140" y1="120" x2="300" y2="180"/>
+    <line x1="140" y1="240" x2="300" y2="180"/>
+    <line x1="300" y1="180" x2="500" y2="120"/>
+    <line x1="300" y1="180" x2="500" y2="240"/>
+    <line x1="500" y1="120" x2="680" y2="180"/>
+    <line x1="500" y1="240" x2="680" y2="180"/>
   </g>
-  <g transform="translate(300,40)">
-    <text x="0" y="-8" font-size="13" fill="var(--sub)" font-family="system-ui">outcome gates &amp; acurácia</text>
-    <g transform="translate(0,0)"><rect class="gate" x="-6" y="0" width="12" height="70" rx="4" fill="var(--gate)"/><text x="0" y="88" font-size="9" text-anchor="middle" fill="var(--ink)" font-family="system-ui">Predict</text></g>
-    <g transform="translate(46,0)"><rect class="gate" style="animation-delay:.3s" x="-6" y="0" width="12" height="70" rx="4" fill="var(--gate)"/><text x="0" y="88" font-size="9" text-anchor="middle" fill="var(--ink)" font-family="system-ui">Audit</text></g>
-    <g transform="translate(92,0)"><rect class="gate" style="animation-delay:.6s" x="-6" y="0" width="12" height="70" rx="4" fill="var(--gate)"/><text x="0" y="88" font-size="9" text-anchor="middle" fill="var(--ink)" font-family="system-ui">Gate</text></g>
-    <g transform="translate(138,0)"><rect class="gate" style="animation-delay:.9s" x="-6" y="0" width="12" height="70" rx="4" fill="var(--gate)"/><text x="0" y="88" font-size="9" text-anchor="middle" fill="var(--ink)" font-family="system-ui">Memory</text></g>
+  <g fill="none" stroke="var(--purple)" stroke-width="2.5">
+    <path class="synapse" d="M 140,120 L 300,180 L 500,120 L 680,180"/>
+    <path class="synapse" d="M 140,240 L 300,180 L 500,240 L 680,180" style="animation-delay:1s;"/>
   </g>
-  <g transform="translate(60,260)">
-    <rect x="-70" y="-22" width="160" height="44" rx="10" fill="#7f1d1d"/>
-    <text x="10" y="3" font-size="12" text-anchor="middle" fill="#fecaca" font-family="system-ui" font-weight="700">decisões invalidadas</text>
+  <g class="mcpNode" transform="translate(140, 120)">
+    <circle r="28" fill="#581c87" stroke="var(--purple)" stroke-width="2"/>
+    <text x="0" y="4" font-size="10" font-weight="900" fill="var(--ink)" text-anchor="middle" font-family="system-ui">PREDICT</text>
   </g>
-  <g transform="translate(620,180)">
-    <circle r="86" fill="none" stroke="#1e1b4b" stroke-width="16"/>
-    <circle class="ring" r="86" fill="none" stroke="var(--ok)" stroke-width="16" transform="rotate(-90)"/>
-    <text x="0" y="-2" font-size="20" text-anchor="middle" fill="var(--ok)" font-family="system-ui" font-weight="700">96.0%</text>
-    <text x="0" y="20" font-size="12" text-anchor="middle" fill="var(--sub)" font-family="system-ui">precisão de predição</text>
+  <g class="mcpNode" transform="translate(140, 240)" style="animation-delay:0.5s;">
+    <circle r="28" fill="#581c87" stroke="var(--purple)" stroke-width="2"/>
+    <text x="0" y="4" font-size="10" font-weight="900" fill="var(--ink)" text-anchor="middle" font-family="system-ui">AUDIT</text>
+  </g>
+  <g class="mcpNode" transform="translate(300, 180)" style="animation-delay:0.8s;">
+    <circle r="36" fill="#3b0764" stroke="var(--cyan)" stroke-width="3"/>
+    <text x="0" y="-4" font-size="11" font-weight="900" fill="var(--cyan)" text-anchor="middle" font-family="system-ui">MCP</text>
+    <text x="0" y="10" font-size="9" font-weight="700" fill="var(--sub)" text-anchor="middle" font-family="system-ui">SERVER</text>
+  </g>
+  <g class="mcpNode" transform="translate(500, 120)" style="animation-delay:1.2s;">
+    <circle r="28" fill="#065f46" stroke="var(--green)" stroke-width="2"/>
+    <text x="0" y="4" font-size="10" font-weight="900" fill="#a7f3d0" text-anchor="middle" font-family="system-ui">GATE</text>
+  </g>
+  <g class="mcpNode" transform="translate(500, 240)" style="animation-delay:1.5s;">
+    <circle r="28" fill="#1e3a8a" stroke="var(--cyan)" stroke-width="2"/>
+    <text x="0" y="4" font-size="10" font-weight="900" fill="var(--cyan)" text-anchor="middle" font-family="system-ui">MEMORY</text>
+  </g>
+  <g transform="translate(620, 140)">
+    <rect x="0" y="0" width="140" height="80" rx="8" fill="#064e3b" stroke="var(--green)" stroke-width="1.5"/>
+    <text x="70" y="24" font-size="10" font-weight="700" fill="#a7f3d0" text-anchor="middle" font-family="system-ui">OUTCOME GATE</text>
+    <text x="70" y="48" font-size="12" font-weight="900" fill="var(--green)" text-anchor="middle" font-family="system-ui">✓ VALIDATED</text>
+    <text x="70" y="66" font-size="9" fill="var(--ink)" text-anchor="middle" font-family="system-ui">Variance &lt; 5%</text>
+  </g>
+  <g transform="translate(260, 25)">
+    <rect x="0" y="0" width="280" height="40" rx="6" fill="#3b0764" stroke="var(--purple)" stroke-width="1"/>
+    <text x="140" y="25" font-size="12" font-weight="900" fill="var(--ink)" text-anchor="middle" font-family="system-ui">MODEL CONTEXT PROTOCOL DECISION ENGINE</text>
   </g>
 </svg>
