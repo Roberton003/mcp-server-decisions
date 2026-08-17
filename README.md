@@ -2,19 +2,15 @@
 
 <div align="center">
 
-# 🧠 MCP Server: Decisions
+# mcp-server-decisions
 
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![MCP](https://img.shields.io/badge/MCP-Protocol-8A2BE2?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![Registry](https://img.shields.io/badge/MCP_Registry-io.github.Roberton003%2Fmcp--server--decisions-purple?style=for-the-badge&logo=modelcontextprotocol)](https://registry.modelcontextprotocol.io/)
-[![GitHub](https://img.shields.io/badge/GitHub-Roberton003%2Fmcp--server--decisions-black?style=for-the-badge&logo=github)](https://github.com/Roberton003/mcp-server-decisions)
 
-<p align="center">
-  <b>Architectural decision tracking with prediction validation and outcome gates.</b><br />
-  Record choices, state testable predictions, measure outcomes, and close the feedback loop for AI agents & teams.
-</p>
+<p><b>Servidor MCP para governança e rastreamento de decisões arquiteturais.</b></p>
 
----
+<img src="docs/images/project-hero.svg" alt="mcp-server-decisions Hero Banner" width="760">
 
 </div>
 
@@ -219,6 +215,16 @@ MIT © 2026 Roberton003 — See [LICENSE](LICENSE).
 ---
 
 <div align="center">
-  <b>Made for AI agents. Built for teams. Learn from every decision.</b>
+
+# mcp-server-decisions
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![MCP](https://img.shields.io/badge/MCP-Protocol-8A2BE2?style=for-the-badge)](https://modelcontextprotocol.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+<p><b>Servidor MCP para governança e rastreamento de decisões arquiteturais.</b></p>
+
+<img src="docs/images/project-hero.svg" alt="mcp-server-decisions Hero Banner" width="760">
+
 </div>
 
