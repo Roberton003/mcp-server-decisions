@@ -8,6 +8,7 @@ An open-source MCP server that helps teams record architectural decisions, conne
 [![MCP](https://img.shields.io/badge/MCP-stdio-7C3AED?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/mcp-server-decisions?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/mcp-server-decisions/)
+[![Glama](https://glama.ai/mcp/servers/Roberton003/mcp-server-decisions/badges/score.svg)](https://glama.ai/mcp/servers/Roberton003/mcp-server-decisions)
 
 ![Architectural Decision Feedback Loop with Outcome Gates](docs/images/project-hero.svg)
 
