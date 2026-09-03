@@ -1,224 +1,175 @@
 <!-- mcp-name: io.github.Roberton003/mcp-server-decisions -->
 
-<div align="center">
-
 # 🧠 MCP Server: Decisions
 
+An open-source MCP server that helps teams record architectural decisions, connect them to testable predictions, and validate outcomes over time. It gives AI agents and developers a lightweight, auditable memory for technical choices.
+
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![MCP](https://img.shields.io/badge/MCP-stdio-7C3AED?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![Registry](https://img.shields.io/badge/MCP_Registry-io.github.Roberton003%2Fmcp--server--decisions-purple?style=for-the-badge&logo=modelcontextprotocol)](https://registry.modelcontextprotocol.io/)
-[![GitHub](https://img.shields.io/badge/GitHub-Roberton003%2Fmcp--server--decisions-black?style=for-the-badge&logo=github)](https://github.com/Roberton003/mcp-server-decisions)
+[![PyPI](https://img.shields.io/pypi/v/mcp-server-decisions?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org/project/mcp-server-decisions/)
 
-<p align="center">
-  <b>Architectural decision tracking with prediction validation and outcome gates.</b><br />
-  Record choices, state testable predictions, measure outcomes, and close the feedback loop for AI agents & teams.
-</p>
+![Architectural Decision Feedback Loop with Outcome Gates](docs/images/project-hero.svg)
 
----
+## ✨ Project Highlights
 
-</div>
+- **Outcome-linked decisions** — connect each technical choice to measurable predictions and observed results.
+- **In-band outcome gates** — tool responses identify predictions that still need validation before the work is considered complete.
+- **Portable storage** — append-only JSONL keeps the log inspectable, easy to back up, and free from database setup.
+- **Zero runtime dependencies** — Python's standard library is enough to run the server.
+- **MCP-native interface** — expose decision tracking through JSON-RPC over stdio to MCP-compatible clients.
+- **Technology feedback** — aggregate validated outcomes to inform future technology choices.
 
-> ⚡ **Zero External Dependencies** • Stdlib-only Python • Append-only JSONL storage • Fully portable
+## 🧰 Technical Stack
 
----
+| Layer | Technology |
+|---|---|
+| Protocol | Model Context Protocol over JSON-RPC 2.0 |
+| Runtime | Python 3.10+ |
+| Storage | Append-only JSONL file |
+| Packaging | PyPI / Hatchling |
+| Testing | Built-in self-test command |
+| License | MIT |
 
-## 📌 Key Features
+## 🔄 Architecture
 
-* **🎯 Decision Recording** — Capture architectural choices with problem statement, solution, rejected alternatives, and target technologies.
-* **📈 Prediction Linking** — Attach testable claims (latency, cost, scalability, reliability) tied to decisions.
-* **✅ Outcome Validation** — Record measured results and automatically compute accuracy scores (0–100 scale).
-* **📊 Technology Performance Registry** — Aggregate success rates and confidence metrics per technology over time.
-* **🚪 Outcome Gate Pattern** — In-band nudges inside tool responses prevent decision feedback loops from leaking (**3.8% → 14.5%** closure rate).
-* **⚡ Zero Dependencies** — Portable append-only JSONL log. No database servers, no migrations, no background daemons.
-
----
-
-## ⚡ Quick Example
-
-### 1️⃣ Record a Decision
-
-```bash
-# Agent or user records a choice:
-record-decision(
-  problem="Query latency exceeds SLA (p99 > 500ms)",
-  chosen_solution="DuckDB + Parquet caching",
-  rejected_alternatives=["Redis", "Elasticsearch"],
-  technologies=["duckdb", "parquet"],
-  predictions=[
-    {"prediction_type": "LATENCY", "predicted_value": "p99 < 200ms"},
-    {"prediction_type": "COST", "predicted_value": "< $50/month"}
-  ]
-)
-# ➔ Returns: DEC-2026-0001, PRD-2026-0001, PRD-2026-0002
+```mermaid
+flowchart TD
+    A[MCP client or AI agent] --> B[JSON-RPC over stdio]
+    B --> C[mcp-server-decisions]
+    C --> D[Record decision]
+    C --> E[Attach prediction]
+    C --> F[Record outcome]
+    C --> G[Query decisions and technology history]
+    D --> H[(Append-only JSONL log)]
+    E --> H
+    F --> H
+    G --> H
+    F --> I[Validation status and accuracy]
+    I --> J[Future technical decisions]
 ```
 
-### 2️⃣ Record an Outcome
+## 📌 What It Provides
 
-```bash
-record-outcome(
-  prediction_id="PRD-2026-0001",
-  actual_value="p99 = 180ms",
-  measurement_source="MONITORING",
-  accuracy_score=95
-)
-# ➔ Returns: SUCCESS ✅ (95% accuracy)
+The server exposes four tools:
+
+| Tool | Purpose |
+|---|---|
+| `record-decision` | Store the problem, chosen solution, alternatives, technologies, and predictions. |
+| `record-prediction` | Add a measurable prediction to an existing decision. |
+| `record-outcome` | Record the observed result and classify the prediction as success, partial success, or failure. |
+| `query-decisions` | Search decisions by keyword, technology, domain, or result limit. |
+
+### Example flow
+
+```text
+Decide → Predict → Implement → Measure → Validate → Learn
 ```
 
-### 3️⃣ Query Prior Decisions & Technology Stats
+A decision can produce an outcome-gate reminder such as:
 
-```bash
-# Search past decisions before choosing a technology:
-query-decisions(technology="duckdb", max_results=5)
-
-# View aggregated technology performance:
-python3 scripts/technology_performance_report.py
-# ➔ Output:
-# technology: duckdb  | successful: 12 | failed: 1 | avg_accuracy: 91.2% | confidence: HIGH
+```json
+{
+  "decision_id": "DEC-2026-0001",
+  "status": "OK",
+  "OUTCOME_GATE": "2 prediction(s) still lack outcomes."
+}
 ```
 
----
+The reminder is a workflow signal, not a claim about adoption or measured impact. See the [Outcome Gate Pattern](docs/OUTCOME-GATE-PATTERN.md) for the design and trade-offs.
 
-## 🚀 Quick Start & Setup
+## 📊 Current Project Status
 
-### 📦 Installation
+| Area | Status |
+|---|---|
+| Decision, prediction, and outcome tracking | Available |
+| Outcome-gate reminders | Available |
+| Technology performance report | Available |
+| PyPI package | Published as `1.0.2` |
+| External adoption metrics | Not collected yet |
+| Web UI and notifications | Roadmap |
+
+The project is early-stage. Contributions, examples from real projects, and feedback are welcome.
+
+## 🚀 Setup
+
+### Prerequisites
+
+- Python 3.10 or newer
+- An MCP-compatible client
+
+### Install from PyPI
 
 ```bash
-# From PyPI (once published) or local editable install:
-pip install -e .
+python3 -m pip install mcp-server-decisions
 ```
 
-### 🛠️ Client Configuration
+### Run the self-test
 
-Add to your MCP client configuration (e.g. Claude Desktop, Claude Code, Cursor, OpenCode):
+```bash
+python3 -m pip install -e .
+python3 server.py --selftest
+```
+
+### Configure an MCP client
 
 ```json
 {
   "mcpServers": {
     "mcp-server-decisions": {
-      "type": "stdio",
       "command": "mcp-server-decisions"
     }
   }
 }
 ```
 
-For client-specific setup guides (Claude, OpenCode, Codex, Antigravity), see 📖 **[docs/INTEGRATIONS.md](docs/INTEGRATIONS.md)**.
+For client-specific configuration and troubleshooting, see [Client Integrations](docs/INTEGRATIONS.md). For a guided first run, see [Quick Start](QUICKSTART.md).
 
----
+### Configure the log path
 
-## How It Works
-
-### The Loop
-
-```
-Decide → Predict → Implement → Measure → Validate → Learn → Next Decision
-```
-
-1. **Record a decision** — Store the problem, chosen solution, alternatives, and technologies
-2. **Make predictions** — Attach testable claims (latency, cost, reliability, etc.)
-3. **Implement** — Build the system
-4. **Measure results** — Capture actual values from monitoring, logs, benchmarks
-5. **Validate** — The server calculates accuracy (0-100) and validation status (SUCCESS / PARTIAL_SUCCESS / FAILED)
-6. **Learn** — Review what worked via the Technology Performance Registry
-7. **Next decision** — Query past decisions before making new recommendations
-
-### The Outcome Gate Pattern
-
-Decision loops leak because predictions aren't validated. This server embeds a reminder directly in tool responses:
-
-**Without Outcome Gate:**
-- Decision is made → implementation starts → results come in → nobody checks if prediction was right
-
-**With Outcome Gate:**
-```json
-{
-  "decision_id": "DEC-2026-0001",
-  "status": "OK",
-  "OUTCOME_GATE": "⚠️  2 prediction(s) from this session still lack outcomes: [PRD-2026-0001, PRD-2026-0002]. Record results via record-outcome before ending."
-}
-```
-
-The nudge is in-band (inside the tool response), where agents are already looking. Result: **3.8% → 14.5% closure rate** improvement (validated on internal tool).
-
-**Real Example**: After recording a decision with 3 predictions, the response includes:
-
-```json
-{
-  "decision_id": "DEC-2026-0042",
-  "prediction_ids": ["PRD-2026-0051", "PRD-2026-0052", "PRD-2026-0053"],
-  "status": "OK",
-  "OUTCOME_GATE": "⚠️  3 prediction(s) from this session still lack outcomes: [PRD-2026-0051, PRD-2026-0052, PRD-2026-0053]. Record results via record-outcome before ending."
-}
-```
-
-Next query still shows the gate until all 3 outcomes are recorded. Once they are, the gate disappears automatically.
-
-For the full pattern explanation, see [`docs/OUTCOME-GATE-PATTERN.md`](docs/OUTCOME-GATE-PATTERN.md).
-
-## 🏛️ Architecture & Tech Stack
-
-* **Storage**: Single append-only `JSONL` file (no database setup, no migrations, portable & git-friendly).
-* **IDs**: Sequential per calendar year (`DEC-2026-0001`, `PRD-2026-0002`, `OUT-2026-0003`).
-* **Accuracy Scoring**: Automatic classification (`≥90` SUCCESS, `50–89` PARTIAL_SUCCESS, `<50` FAILED).
-* **Runtime**: Stdlib-only Python 3.10+ (zero external pip runtime dependencies).
-* **Protocol**: Model Context Protocol (JSON-RPC 2.0 over stdio).
-
----
-
-## ⚙️ Environment Variables
-
-| Variable | Description | Default Path |
-|---|---|---|
-| `MCP_DECISIONS_LOG_PATH` | Path to the append-only JSONL log file | `~/.local/share/mcp-decisions/decisions_log.json` |
-
----
-
-## 📚 Documentation & Resources
-
-| Document | Purpose |
-|---|---|
-| ⚡ **[Quick Start](QUICKSTART.md)** | 5-minute setup guide & first decision |
-| 🔌 **[Client Integrations](docs/INTEGRATIONS.md)** | Setup configs for Claude, OpenCode, Codex, Antigravity |
-| 📐 **[Architecture & Design](docs/ARCHITECTURE.md)** | Core design rationale & data models |
-| 💡 **[Detailed Examples](docs/EXAMPLES.md)** | Real JSON-RPC request/response payloads |
-| 🚪 **[Outcome Gate Pattern](docs/OUTCOME-GATE-PATTERN.md)** | In-band feedback loop design philosophy |
-| 📖 **[Wiki](https://github.com/Roberton003/mcp-server-decisions/wiki)** | FAQ and advanced topics |
-
----
-
-## 🧪 Development & Testing
-
-Run unit & selftests locally:
+By default, the server writes to `~/.local/share/mcp-decisions/decisions_log.json`. Set `MCP_DECISIONS_LOG_PATH` to use another file:
 
 ```bash
-python3 server.py --selftest
-# ➔ ✅ All self-tests passed
+MCP_DECISIONS_LOG_PATH=/path/to/decisions.json mcp-server-decisions
 ```
 
-See 📝 **[CONTRIBUTING.md](CONTRIBUTING.md)** to contribute features or fixes.
+## 🗂️ Project Structure
 
----
+```text
+.
+├── server.py                         # MCP server and tool implementations
+├── scripts/                          # Reports derived from the decision log
+├── docs/                             # Architecture, examples, and integrations
+├── .github/ISSUE_TEMPLATE/           # Reusable bug and feature templates
+├── CONTRIBUTING.md                   # Development and contribution workflow
+├── QUICKSTART.md                     # Guided setup and first decision
+├── server.json                       # MCP Registry metadata
+├── pyproject.toml                    # PyPI package metadata
+└── LICENSE                           # MIT license
+```
 
-## 🗺️ Roadmap
+## 📚 Documentation
 
-- [x] Core decision / prediction / outcome tracking
-- [x] Outcome Gate in-band nudges
-- [x] Technology Performance Registry
-- [ ] Web UI for browsing & searching decisions
-- [ ] Webhooks / notifications on low prediction accuracy
-- [ ] Pre-built decision templates & domain patterns
+- [Quick Start](QUICKSTART.md) — install and record a first decision.
+- [Client Integrations](docs/INTEGRATIONS.md) — configure MCP clients.
+- [Detailed Examples](docs/EXAMPLES.md) — JSON-RPC requests and responses.
+- [Architecture & Design](docs/ARCHITECTURE.md) — storage, IDs, scoring, and trade-offs.
+- [Outcome Gate Pattern](docs/OUTCOME-GATE-PATTERN.md) — the reusable feedback-loop pattern.
+- [Contributing](CONTRIBUTING.md) — propose fixes, features, and documentation.
 
----
+## 🛣️ Roadmap
 
-## 📄 License & Disclaimer
+- [x] Core decision, prediction, and outcome tracking
+- [x] Outcome-gate reminders
+- [x] Technology performance reporting
+- [ ] Web UI for browsing and searching decisions
+- [ ] Notifications for low prediction accuracy
+- [ ] Reusable decision templates and domain patterns
 
-MIT © 2026 Roberton003 — See [LICENSE](LICENSE).
+## 🤝 Contributing
 
-*This project is community-built and independent. It is not affiliated with any organization or standard-setting body.*
+Issues and pull requests are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md), run the self-test, and explain the problem or use case in the pull request.
 
----
+## 📄 License
 
-<div align="center">
-  <b>Made for AI agents. Built for teams. Learn from every decision.</b>
-</div>
-
+[MIT](LICENSE) © 2026 Roberto Nascimento

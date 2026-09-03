@@ -74,20 +74,15 @@ Works for:
 
 ## Validation
 
-Tested on a sibling internal tool with a 2-week run:
+The repository validates the implementation with the built-in self-test:
 
-| Metric | Without In-Band Nudge | With OUTCOME_GATE |
-|--------|----------------------|-------------------|
-| Organic loop closure | 3.8% | 14.5% |
-| Avg. time to closure | 6.2 days | 1.3 days |
-| User effort | Scheduled reminders | None (embedded) |
+```bash
+python3 server.py --selftest
+```
 
-The improvement is **directional**, not a controlled study:
-- Smaller sample size than would be ideal
-- Single domain (architectural decisions)
-- No A/B split, just before/after
-
-But the trend is clear: **co-locating the reminder with the data point significantly improves closure rates without adding process overhead.**
+The self-test covers decision creation, prediction linking, outcome recording,
+validation statuses, and the outcome-gate response. The project does not yet
+collect comparative adoption or closure-rate metrics.
 
 ## When NOT to Use
 

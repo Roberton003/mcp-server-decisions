@@ -496,7 +496,7 @@ def main():
                         "protocolVersion": "2025-03-26",
                         "serverInfo": {
                             "name": "decisions",
-                            "version": "1.0.0",
+                            "version": "1.0.2",
                         },
                         "capabilities": {
                             "tools": {

@@ -13,7 +13,9 @@ requires-python = ">=3.10"
 dependencies = []
 
 [project.urls]
+Homepage = "https://github.com/Roberton003/mcp-server-decisions"
 Repository = "https://github.com/Roberton003/mcp-server-decisions"
+Issues = "https://github.com/Roberton003/mcp-server-decisions/issues"
 
 [project.scripts]
 mcp-server-decisions = "server:main"

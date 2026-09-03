@@ -1,0 +1,351 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="100%" height="100%" role="img" aria-labelledby="title desc">
+  <title id="title">MCP Server Decisions - Architectural Decision Feedback Loop</title>
+  <desc id="desc">Visual workflow diagram illustrating the decision-prediction-gate-validation-learning cycle of the MCP Server Decisions project.</desc>
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-base" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c18"/>
+      <stop offset="50%" stop-color="#0e1428"/>
+      <stop offset="100%" stop-color="#090d1c"/>
+    </linearGradient>
+    <radialGradient id="glow-cyan" cx="15%" cy="25%" r="45%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-amber" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-emerald" cx="85%" cy="35%" r="45%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Card Background Gradients -->
+    <linearGradient id="grad-decide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="grad-predict" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="grad-gate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#191206" stop-opacity="0.98"/>
+    </linearGradient>
+    <linearGradient id="grad-validate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#061a14" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="grad-learn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Header Gradient -->
+    <linearGradient id="title-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="40%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <!-- Flow Line Gradients -->
+    <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="line-grad-2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="line-grad-3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="line-grad-4" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="return-grad" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="50%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arrow-emerald" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="arrow-return" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#38bdf8"/>
+    </marker>
+
+    <!-- Tech Grid Pattern -->
+    <pattern id="tech-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1e293b" stroke-width="0.5" stroke-opacity="0.6"/>
+    </pattern>
+
+    <style>
+      .mono { font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace; }
+      .sans { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif; }
+      
+      @keyframes dashFlow {
+        from { stroke-dashoffset: 24; }
+        to { stroke-dashoffset: 0; }
+      }
+      @keyframes dashReturn {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: 48; }
+      }
+      @keyframes gateGlow {
+        0%, 100% {
+          filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
+        }
+        50% {
+          filter: drop-shadow(0 0 13px rgba(245, 158, 11, 0.85));
+        }
+      }
+      @keyframes successGlow {
+        0%, 100% {
+          filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.3));
+        }
+        50% {
+          filter: drop-shadow(0 0 9px rgba(16, 185, 129, 0.7));
+        }
+      }
+      @keyframes pFlow1 {
+        0% { cx: 228; opacity: 0; }
+        25% { opacity: 1; }
+        75% { opacity: 1; }
+        100% { cx: 273; opacity: 0; }
+      }
+      @keyframes pFlow2 {
+        0% { cx: 461; opacity: 0; }
+        25% { opacity: 1; }
+        75% { opacity: 1; }
+        100% { cx: 506; opacity: 0; }
+      }
+      @keyframes pFlow3 {
+        0% { cx: 694; opacity: 0; }
+        25% { opacity: 1; }
+        75% { opacity: 1; }
+        100% { cx: 739; opacity: 0; }
+      }
+      @keyframes pFlow4 {
+        0% { cx: 927; opacity: 0; }
+        25% { opacity: 1; }
+        75% { opacity: 1; }
+        100% { cx: 972; opacity: 0; }
+      }
+
+      .animated-flow {
+        stroke-dasharray: 6 6;
+        animation: dashFlow 1.2s linear infinite;
+      }
+      .animated-return {
+        stroke-dasharray: 8 6;
+        animation: dashReturn 2.4s linear infinite;
+      }
+      .gate-pulse {
+        animation: gateGlow 2.5s ease-in-out infinite;
+      }
+      .success-pulse {
+        animation: successGlow 2.8s ease-in-out infinite;
+      }
+      .pf1 { animation: pFlow1 1.2s ease-in-out infinite; }
+      .pf2 { animation: pFlow2 1.2s ease-in-out infinite 0.3s; }
+      .pf3 { animation: pFlow3 1.2s ease-in-out infinite 0.6s; }
+      .pf4 { animation: pFlow4 1.2s ease-in-out infinite 0.9s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .animated-flow, .animated-return, .gate-pulse, .success-pulse, .pf1, .pf2, .pf3, .pf4 {
+          animation: none !important;
+        }
+      }
+    </style>
+  </defs>
+
+  <!-- 1. Background Structure -->
+  <rect width="1200" height="470" rx="20" fill="url(#bg-base)"/>
+  <rect width="1200" height="470" rx="20" fill="url(#tech-grid)"/>
+  <rect width="1200" height="470" rx="20" fill="url(#glow-cyan)"/>
+  <rect width="1200" height="470" rx="20" fill="url(#glow-amber)"/>
+  <rect width="1200" height="470" rx="20" fill="url(#glow-emerald)"/>
+  <rect width="1198" height="468" x="1" y="1" rx="19" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- 2. Header Section -->
+  <g text-anchor="middle" class="sans">
+    <!-- Top Pill Badge -->
+    <g transform="translate(600, 32)">
+      <rect x="-165" y="-12" width="330" height="24" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text y="4" fill="#94a3b8" font-size="11" font-weight="600" letter-spacing="0.06em">MODEL CONTEXT PROTOCOL · STDLIB PYTHON</text>
+    </g>
+
+    <!-- Main Title -->
+    <text x="600" y="68" fill="url(#title-grad)" font-size="26" font-weight="800" letter-spacing="0.02em">
+      MCP SERVER: DECISIONS
+    </text>
+
+    <!-- Subtitle -->
+    <text x="600" y="94" fill="#94a3b8" font-size="13.5" font-weight="400">
+      Architectural Decision Tracking · Testable Predictions · In-Band Outcome Gates · Closed-Loop Learning
+    </text>
+  </g>
+
+  <!-- 3. Inter-Card Connecting Circuits -->
+  <!-- Circuit 1: Decide -> Predict -->
+  <path d="M 228 238 L 273 238" fill="none" stroke="#1e293b" stroke-width="4"/>
+  <path d="M 228 238 L 267 238" fill="none" stroke="url(#line-grad-1)" stroke-width="2.5" class="animated-flow" marker-end="url(#arrow-cyan)"/>
+  <circle cy="238" r="3.5" fill="#38bdf8" class="pf1"/>
+
+  <!-- Circuit 2: Predict -> Gate -->
+  <path d="M 461 238 L 506 238" fill="none" stroke="#1e293b" stroke-width="4"/>
+  <path d="M 461 238 L 500 238" fill="none" stroke="url(#line-grad-2)" stroke-width="2.5" class="animated-flow" marker-end="url(#arrow-amber)"/>
+  <circle cy="238" r="3.5" fill="#f59e0b" class="pf2"/>
+
+  <!-- Circuit 3: Gate -> Validate -->
+  <path d="M 694 238 L 739 238" fill="none" stroke="#1e293b" stroke-width="4"/>
+  <path d="M 694 238 L 733 238" fill="none" stroke="url(#line-grad-3)" stroke-width="2.5" class="animated-flow" marker-end="url(#arrow-emerald)"/>
+  <circle cy="238" r="3.5" fill="#10b981" class="pf3"/>
+
+  <!-- Circuit 4: Validate -> Learn -->
+  <path d="M 927 238 L 972 238" fill="none" stroke="#1e293b" stroke-width="4"/>
+  <path d="M 927 238 L 966 238" fill="none" stroke="url(#line-grad-4)" stroke-width="2.5" class="animated-flow" marker-end="url(#arrow-purple)"/>
+  <circle cy="238" r="3.5" fill="#8b5cf6" class="pf4"/>
+
+  <!-- 4. Workflow Cards (5 Stages) -->
+
+  <!-- CARD 1: DECIDE -->
+  <g transform="translate(40, 130)" class="sans">
+    <rect width="188" height="215" rx="14" fill="url(#grad-decide)" stroke="#0284c7" stroke-width="1.5"/>
+    <rect x="12" y="14" width="75" height="20" rx="6" fill="#0369a1" fill-opacity="0.3" stroke="#38bdf8" stroke-width="0.8"/>
+    <text x="49.5" y="28" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle" class="mono">1. DECIDE</text>
+    <text x="176" y="28" fill="#64748b" font-size="10" font-weight="600" text-anchor="end" class="mono">DEC-001</text>
+    
+    <text x="14" y="60" fill="#f8fafc" font-size="15" font-weight="700">Record Choice</text>
+    <text x="14" y="78" fill="#94a3b8" font-size="11.5">Problem &amp; Alternatives</text>
+    
+    <rect x="12" y="92" width="164" height="76" rx="8" fill="#0b1329" stroke="#1e293b" stroke-width="1"/>
+    <text x="20" y="110" fill="#38bdf8" font-size="10.5" font-weight="600" class="mono">chosen:</text>
+    <text x="20" y="126" fill="#e2e8f0" font-size="11.5" font-weight="600">DuckDB + Parquet</text>
+    <text x="20" y="144" fill="#64748b" font-size="10" class="mono">rejected:</text>
+    <text x="20" y="158" fill="#94a3b8" font-size="10.5">Redis, Elastic</text>
+
+    <rect x="12" y="178" width="164" height="24" rx="6" fill="#0284c7" fill-opacity="0.15" stroke="#0284c7" stroke-width="0.8"/>
+    <text x="94" y="194" fill="#7dd3fc" font-size="10" font-weight="600" text-anchor="middle" class="mono">record-decision()</text>
+  </g>
+
+  <!-- CARD 2: PREDICT -->
+  <g transform="translate(273, 130)" class="sans">
+    <rect width="188" height="215" rx="14" fill="url(#grad-predict)" stroke="#4f46e5" stroke-width="1.5"/>
+    <rect x="12" y="14" width="80" height="20" rx="6" fill="#4338ca" fill-opacity="0.3" stroke="#818cf8" stroke-width="0.8"/>
+    <text x="52" y="28" fill="#a5b4fc" font-size="10.5" font-weight="700" text-anchor="middle" class="mono">2. PREDICT</text>
+    <text x="176" y="28" fill="#64748b" font-size="10" font-weight="600" text-anchor="end" class="mono">PRD-001</text>
+    
+    <text x="14" y="60" fill="#f8fafc" font-size="15" font-weight="700">State Claims</text>
+    <text x="14" y="78" fill="#94a3b8" font-size="11.5">Testable Expectations</text>
+    
+    <rect x="12" y="92" width="164" height="76" rx="8" fill="#0c1033" stroke="#1e293b" stroke-width="1"/>
+    <text x="20" y="110" fill="#818cf8" font-size="10.5" font-weight="600" class="mono">target_metric:</text>
+    <text x="20" y="126" fill="#e2e8f0" font-size="12" font-weight="600">p99 &lt; 200ms</text>
+    <text x="20" y="144" fill="#64748b" font-size="10" class="mono">monthly_cost:</text>
+    <text x="20" y="158" fill="#94a3b8" font-size="11">&lt; 0 / month</text>
+
+    <rect x="12" y="178" width="164" height="24" rx="6" fill="#4f46e5" fill-opacity="0.15" stroke="#6366f1" stroke-width="0.8"/>
+    <text x="94" y="194" fill="#c7d2fe" font-size="10" font-weight="600" text-anchor="middle" class="mono">testable_contract</text>
+  </g>
+
+  <!-- CARD 3: OUTCOME GATE (The Central Feature) -->
+  <g transform="translate(506, 125)" class="sans gate-pulse">
+    <rect width="188" height="225" rx="16" fill="url(#grad-gate)" stroke="#f59e0b" stroke-width="2.2"/>
+    <rect x="12" y="12" width="114" height="20" rx="6" fill="#b45309" fill-opacity="0.4" stroke="#f59e0b" stroke-width="1"/>
+    <text x="69" y="26" fill="#fef3c7" font-size="10" font-weight="800" text-anchor="middle" class="mono">⚡ OUTCOME GATE</text>
+    
+    <circle cx="172" cy="22" r="4" fill="#f59e0b"/>
+    
+    <text x="14" y="58" fill="#fbbf24" font-size="15" font-weight="800">In-Band Nudge</text>
+    <text x="14" y="75" fill="#fde68a" font-size="11">Prevents Loop Leakage</text>
+    
+    <rect x="10" y="88" width="168" height="82" rx="8" fill="#1a1003" stroke="#78350f" stroke-width="1"/>
+    <text x="18" y="106" fill="#fbbf24" font-size="10.5" font-weight="700">⚠️  UNCLOSED LOOP</text>
+    <text x="18" y="122" fill="#fef3c7" font-size="10.5">2 predictions pending</text>
+    <text x="18" y="136" fill="#fde68a" font-size="10" font-weight="500">record-outcome before</text>
+    <text x="18" y="150" fill="#fde68a" font-size="10" font-weight="500">completing session!</text>
+    <text x="18" y="164" fill="#fbbf24" font-size="9" class="mono">[PRD-001, PRD-002]</text>
+
+    <rect x="10" y="180" width="168" height="32" rx="7" fill="#d97706" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1"/>
+    <text x="94" y="195" fill="#fef3c7" font-size="10" font-weight="700" text-anchor="middle">IN-BAND REMINDER</text>
+    <text x="94" y="207" fill="#fde68a" font-size="8.5" text-anchor="middle">Embedded in tool responses</text>
+  </g>
+
+  <!-- CARD 4: VALIDATE -->
+  <g transform="translate(739, 130)" class="sans success-pulse">
+    <rect width="188" height="215" rx="14" fill="url(#grad-validate)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="12" y="14" width="86" height="20" rx="6" fill="#047857" fill-opacity="0.3" stroke="#34d399" stroke-width="0.8"/>
+    <text x="55" y="28" fill="#6ee7b7" font-size="10.5" font-weight="700" text-anchor="middle" class="mono">4. VALIDATE</text>
+    <text x="176" y="28" fill="#64748b" font-size="10" font-weight="600" text-anchor="end" class="mono">OUT-001</text>
+    
+    <text x="14" y="60" fill="#f8fafc" font-size="15" font-weight="700">Score Results</text>
+    <text x="14" y="78" fill="#94a3b8" font-size="11.5">Measured Accuracy</text>
+    
+    <rect x="12" y="92" width="164" height="76" rx="8" fill="#052319" stroke="#065f46" stroke-width="1"/>
+    <text x="20" y="110" fill="#34d399" font-size="10.5" font-weight="600" class="mono">measured_p99:</text>
+    <text x="20" y="126" fill="#ecfdf5" font-size="12" font-weight="700">180ms (vs &lt;200ms)</text>
+    <text x="20" y="144" fill="#10b981" font-size="10.5" font-weight="600" class="mono">accuracy_score:</text>
+    <text x="20" y="158" fill="#a7f3d0" font-size="11.5" font-weight="700">95 / 100</text>
+
+    <rect x="12" y="178" width="164" height="24" rx="6" fill="#059669" fill-opacity="0.2" stroke="#10b981" stroke-width="1"/>
+    <text x="94" y="194" fill="#6ee7b7" font-size="10.5" font-weight="700" text-anchor="middle">STATUS: SUCCESS ✅</text>
+  </g>
+
+  <!-- CARD 5: LEARN -->
+  <g transform="translate(972, 130)" class="sans">
+    <rect width="188" height="215" rx="14" fill="url(#grad-learn)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="12" y="14" width="72" height="20" rx="6" fill="#6d28d9" fill-opacity="0.3" stroke="#a78bfa" stroke-width="0.8"/>
+    <text x="48" y="28" fill="#c4b5fd" font-size="10.5" font-weight="700" text-anchor="middle" class="mono">5. LEARN</text>
+    <text x="176" y="28" fill="#64748b" font-size="10" font-weight="600" text-anchor="end" class="mono">REGISTRY</text>
+    
+    <text x="14" y="60" fill="#f8fafc" font-size="15" font-weight="700">Tech Registry</text>
+    <text x="14" y="78" fill="#94a3b8" font-size="11.5">Aggregated Stats</text>
+    
+    <rect x="12" y="92" width="164" height="76" rx="8" fill="#170e30" stroke="#2e1065" stroke-width="1"/>
+    <text x="20" y="110" fill="#c084fc" font-size="10.5" font-weight="600" class="mono">tech: duckdb</text>
+    <text x="20" y="126" fill="#f3e8ff" font-size="11" font-weight="600">12 Success | 1 Fail</text>
+    <text x="20" y="144" fill="#a78bfa" font-size="10.5" font-weight="600" class="mono">avg_accuracy:</text>
+    <text x="20" y="158" fill="#e9d5ff" font-size="11.5" font-weight="700">91.2% (HIGH)</text>
+
+    <rect x="12" y="178" width="164" height="24" rx="6" fill="#7c3aed" fill-opacity="0.2" stroke="#8b5cf6" stroke-width="0.8"/>
+    <text x="94" y="194" fill="#ddd6fe" font-size="10" font-weight="600" text-anchor="middle" class="mono">query-decisions()</text>
+  </g>
+
+  <!-- 5. Return Feedback Loop (Closing the Loop) -->
+  <g class="sans">
+    <path d="M 1066 350 C 1066 440, 134 440, 134 350" fill="none" stroke="#1e293b" stroke-width="4"/>
+    <path d="M 1066 350 C 1066 440, 134 440, 134 355" fill="none" stroke="url(#return-grad)" stroke-width="2.5" class="animated-return" marker-end="url(#arrow-return)"/>
+
+    <g transform="translate(600, 420)">
+      <rect x="-250" y="-16" width="500" height="32" rx="16" fill="#0b1226" stroke="#38bdf8" stroke-width="1.4"/>
+      <rect x="-248" y="-14" width="496" height="28" rx="14" fill="#0284c7" fill-opacity="0.1"/>
+      <text y="4.5" fill="#e0f2fe" font-size="12" font-weight="700" text-anchor="middle">
+        🔄 CLOSED FEEDBACK LOOP: Measured Outcomes Inform Next Decisions
+      </text>
+    </g>
+
+    <text x="960" y="385" fill="#a78bfa" font-size="10.5" font-weight="600" text-anchor="middle" class="mono">
+      Verified Evidence
+    </text>
+    <text x="240" y="385" fill="#38bdf8" font-size="10.5" font-weight="600" text-anchor="middle" class="mono">
+      Prior Confidence
+    </text>
+  </g>
+</svg>

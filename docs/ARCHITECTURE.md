@@ -132,7 +132,7 @@ Embed pending-prediction nudges directly in tool response payloads (OUTCOME_GATE
 
 **Solution**: Nudge at the exact moment the agent is already looking at the decision.
 
-**Result**: 3.8% → 14.5% closure rate (validated on internal tool).
+**Validation**: The implementation is covered by the built-in self-test; comparative closure-rate metrics are not collected by this project.
 
 ### How It Works
 
